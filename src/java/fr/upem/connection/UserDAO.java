@@ -42,6 +42,11 @@ public class UserDAO {
                 bean.setUserpseudo(pseudo);
                 bean.setValid(true);
             }
+            
+            rs.close();
+            currentCon.close();
+            stmt.close();
+            
         } catch (Exception ex) {
             System.out.println("Log In failed: An Exception has occurred! " + ex);
         } //some exception handling
@@ -81,7 +86,7 @@ public class UserDAO {
         String password = bean.getPassword();
         String pseudo = bean.getUserpseudo();
         String insertQuery = "insert into ut (ut_mail,ut_mdp,ut_pseudo) values('" + email + "','" + password + "','" + pseudo + "')";
-        String searchQuery = "select * from ut where ut_mail='" + email + "' or ut_mdp='" + password + "'";
+        String searchQuery = "select * from ut where ut_mail='" + email + "' or ut_pseudo='" + pseudo + "'";
         
         try {
             //connect to DB 
@@ -94,9 +99,8 @@ public class UserDAO {
             if (!more) {
                 stmt.execute(insertQuery);
                 //if user exists set the isValid variable to true
-                bean.setUserpseudo(pseudo);
                 bean.setValid(true);
-            } 
+            }
             
             //if user exists set the isValid variable to false
             else if (more) {

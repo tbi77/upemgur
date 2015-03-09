@@ -24,6 +24,7 @@ public class DeconnexionServlet extends HttpServlet {
             throws ServletException, IOException {
          /* Récupération et destruction de la session en cours */
         HttpSession session = request.getSession();
+        session.removeAttribute("currentSessionUser");
         session.invalidate();
         response.sendRedirect( "faces/index.xhtml" );
     }

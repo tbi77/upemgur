@@ -4,6 +4,12 @@
     Author     : Jon
 --%>
 
+<%@page import="java.nio.file.FileSystems"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.nio.file.Files"%>
+<%@page import="java.nio.file.DirectoryStream"%>
+<%@page import="java.nio.file.Path"%>
+<%@page import="java.nio.file.Paths"%>
 <%@ page language="java" 
          contentType="text/html; charset=windows-1256" 
          pageEncoding="windows-1256" 
@@ -14,7 +20,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Free Bootstrap website | webthemez</title>
+        <title>Upemgur - Accueil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- css -->
         <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -23,6 +29,10 @@
         <link href="css/flexslider.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/menu3.css" media="screen" type="text/css" />
+
+        <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
+        <!-- The main CSS file -->
+        <link href="assets/css/style.css" rel="stylesheet" />
 
     </head>
     <body>
@@ -42,15 +52,32 @@
                         </div>
                         <div class="navbar-collapse collapse ">
                             <ul class="nav navbar-nav">
-                                <li><a href="upload.jsp">Upload</a></li>
+                                <li><a href="myalbum.jsp">Gérer mes photos</a></li>
+                                <li><a href="#" id="toggle-upload">Upload</a></li>
                                 <li><a href="DeconnexionServlet">Deconnexion</a></li>
                             </ul>
                         </div>
 
+                        <form id="upload" method="post" action="UploadFile" enctype="multipart/form-data">
+                            <div id="drop">
+                                Déposez ici
+
+                                <a>Parcourir</a>
+
+                                <input type="file" name="upl" multiple />
+                            </div>
+
+                            <ul id="listupload">
+                                <!-- The file uploads will be shown here -->
+                            </ul>
+
+                        </form>
+
+
                     </div>
                 </div>
             </header><!-- end header -->
-            
+
             <div class="dropdown-menu ddm1">	
                 <input type="checkbox" name="toggle" id="toggle">
                 <label for="toggle">Menu</label>
@@ -60,8 +87,8 @@
                     <li><a href="#" title="Options">Options</a></li>
                 </ul>
             </div>
-            
-      
+
+
             <section id="inner-headline">
                 <div class="container">
                     <div class="row">
@@ -93,91 +120,53 @@
                                 <section id="projects">
                                     <ul id="thumbs" class="portfolio">
                                         <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 design" data-id="id-0" data-type="web">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/1.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 design" data-id="id-1" data-type="icon">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/2.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 photography" data-id="id-2" data-type="graphic">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/3.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 design" data-id="id-0" data-type="web">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/4.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 photography" data-id="id-4" data-type="web">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/5.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 photography" data-id="id-5" data-type="icon">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/6.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <li class="item-thumbs col-lg-3 design" data-id="id-0" data-type="web">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/7.jpg" alt="">
-                                        </li>
-                                        <!-- End Item Project -->
-                                        <!-- Item Project and Filter Name -->
-                                        <li class="item-thumbs col-lg-3 design" data-id="id-0" data-type="graphic">
-                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
-                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="img2/2.jpg">
-                                                <span class="overlay-img"></span>
-                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
-                                            </a>
-                                            <!-- Thumb Image and Description -->
-                                            <img src="img/works/8.jpg" alt="">
-                                        </li>
+                                        <%
+
+                                            //Path p = Paths.get("G:/up/public/");
+                                            /*
+                                             out.println("<li class=\"item-thumbs col-lg-3 design\" data-id=\"id-0\" data-type=\"web\">");
+                                             out.println(" <a class=\"hover-wrap fancybox\" data-fancybox-group=\"gallery\" title=\"Portfolio name\" href=\"serveri/2.jpg\"\">");
+                                             out.println("<span class=\"overlay-img\"></span>");
+                                             out.println("<span class=\"overlay-img-thumb\"><i class=\"icon-info-blocks fa fa-code\"></i></span>");
+                                             out.println("</a>");
+                                             out.println("<img src=\"serveri/2.jpg\" alt=\"\">");
+                                             out.println("</li>");
+                                             */
+                                            Path p = Paths.get("serveri/2.jpg");
+                                            out.println(p.toString());
+                                            String var =  p.toString().replace("\\", "/");
+                                            out.println(var);
+                                            
+                                            
+                                             Path homePath = FileSystems.getDefault().getPath("G:/up/public/");
+                                             out.println(homePath.toString());
+                                             
+                                             DirectoryStream<Path> stream = Files.newDirectoryStream(homePath);
+                                             /*for (Path entry : stream) {
+                                             out.println(entry.toString());
+                                             out.println("<li class=\"item-thumbs col-lg-3 design\" data-id=\"id-0\" data-type=\"web\">");
+                                             out.println(" <a class=\"hover-wrap fancybox\" data-fancybox-group=\"gallery\" title=\"Portfolio name\" href=\"" + entry.toString() + "\">");
+                                             out.println("<span class=\"overlay-img\"></span>");
+                                             out.println("<span class=\"overlay-img-thumb\"><i class=\"icon-info-blocks fa fa-code\"></i></span>");
+                                             out.println("</a>");
+                                             out.println("<img src=\"" + entry.toString() + "\" alt=\"\">");
+                                             out.println("</li>");
+                                             }*/
+                                             
+
+                                            //DirectoryStream<Path> stream = Files.newDirectoryStream(p);
+                                            //    Iterator<Path> iterator = stream.iterator();
+                                            //  while (iterator.hasNext()) {
+                                            out.println("<li class=\"item-thumbs col-lg-3 design\" data-id=\"id-0\" data-type=\"web\">");
+                                            out.println("<a class=\"hover-wrap fancybox\" data-fancybox-group=\"gallery\" title=\"Portfolio name\" href=\"" + var + "\">");
+                                            out.println("<span class=\"overlay-img\"></span>");
+                                            out.println("<span class=\"overlay-img-thumb\"><i class=\"icon-info-blocks fa fa-code\"></i></span>");
+                                            out.println("</a>");
+                                            out.println("<img src=\"" + var + "\" alt=\"\">");
+                                            out.println("</li>");
+                                              //  }
+
+                                        %>
                                         <!-- End Item Project -->
                                     </ul>
                                 </section>
@@ -195,7 +184,7 @@
                             <div class="col-lg-6">
                                 <div class="copyright">
                                     <p>
-                                        <span>&copy; Target 2015 All right reserved. By </span>WebThemez
+                                        &copy; UPEM 2015 All right reserved. By Jonathan THAMBIRAJAH & Alexandre PARIS  
                                     </p>
                                 </div>
                             </div>
@@ -219,5 +208,20 @@
         <script src="js/jquery.flexslider.js"></script>
         <script src="js/animate.js"></script>
         <script src="js/custom.js"></script>
+
+
+        <!-- JavaScript Includes -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="assets/js/jquery.knob.js"></script>
+
+        <!-- jQuery File Upload Dependencies -->
+        <script src="assets/js/jquery.ui.widget.js"></script>
+        <script src="assets/js/jquery.iframe-transport.js"></script>
+        <script src="assets/js/jquery.fileupload.js"></script>
+
+        <!-- Our main JS file -->
+        <script src="assets/js/script.js"></script>
+        <script src="js/upload.js"></script>
+
     </body>
 </html>

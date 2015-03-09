@@ -35,7 +35,7 @@ public class InscriptionServlet extends HttpServlet {
          
             else {
                 //response.sendRedirect("invalidLogin.jsp");
-                response.sendRedirect("index.xhtml");
+                response.sendRedirect("faces/index.xhtml");
             }
 
         } catch (Throwable e) { 

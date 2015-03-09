@@ -28,7 +28,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class UploadFile extends HttpServlet {
 
-    public static String saveFile;
+    public static String saveFile="G:/up";
     //"G:/up"
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

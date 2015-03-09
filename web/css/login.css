@@ -47,6 +47,7 @@
 
 }
 
+/*
 #login2{
     width:400px;
     margin:0 auto;
@@ -59,6 +60,7 @@
     position: absolute;
     right: 10px;
 }
+*/
 
 #triangle{
     width:0;
@@ -78,6 +80,7 @@
     color:#fff;
 }
 
+/*
 #login2 h1{
     background:#DF3A01;
     padding:20px 0;
@@ -86,7 +89,7 @@
     text-align:center;
     color:#fff;
 }
-
+*/
 
 form{
     background:#f0f0f0;
@@ -122,8 +125,9 @@ input[type="submit"]:hover{
     //#2288bb
 }
 
-
+/*
 .errorconnec[type="submit"]:hover{
     background:red;
     //#2288bb
 }
+*/
