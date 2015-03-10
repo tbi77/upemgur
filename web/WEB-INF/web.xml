@@ -26,10 +26,6 @@
         <servlet-class>fr.upem.connection.DeconnexionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PublicImageServlet</servlet-name>
-        <servlet-class>fr.upem.upload.PublicImageServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ImageServlet</servlet-name>
         <servlet-class>fr.upem.images.ImageServlet</servlet-class>
     </servlet>
@@ -52,10 +48,6 @@
     <servlet-mapping>
         <servlet-name>DeconnexionServlet</servlet-name>
         <url-pattern>/DeconnexionServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PublicImageServlet</servlet-name>
-        <url-pattern>/PublicImageServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ImageServlet</servlet-name>

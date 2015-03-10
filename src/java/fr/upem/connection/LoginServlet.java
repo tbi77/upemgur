@@ -26,14 +26,15 @@ public class LoginServlet extends HttpServlet {
             user.setUserEmail(request.getParameter("un"));
             user.setPassword(request.getParameter("pw"));
             user = UserDAO.login(user);
-            if (user.isValid()) {
+            if ( user.isValid() & request.getParameter("un")!="" & request.getParameter("pw")!="" ) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("currentSessionUser", user);
                 response.sendRedirect("welcome.jsp");
             }
          
-            else 
+            else
                 response.sendRedirect("invalidLogin.jsp");
+            
 
         } catch (Throwable theException) { 
             System.out.println(theException); 

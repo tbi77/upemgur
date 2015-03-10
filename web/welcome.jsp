@@ -20,7 +20,8 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Upemgur - Accueil</title>
+        <% UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));%>
+        <title>Accueil - <%= currentUser.getUserpseudo()%> </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- css -->
         <link href="css/bootstrap.min.css" rel="stylesheet" />
@@ -93,7 +94,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <% UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));%>
+                          
                             <h2 class="pageTitle">Bienvenu <%= currentUser.getUserpseudo()%> </h2>
                         </div>
                     </div>
@@ -120,6 +121,7 @@
                                 <section id="projects">
                                     <ul id="thumbs" class="portfolio">
                                         <!-- Item Project and Filter Name -->
+                                        <!--
                                         <%
 
                                             //Path p = Paths.get("G:/up/public/");
@@ -132,17 +134,18 @@
                                              out.println("<img src=\"serveri/2.jpg\" alt=\"\">");
                                              out.println("</li>");
                                              */
-                                            Path p = Paths.get("serveri/2.jpg");
+                                            
+                                        
+/*                                            Path p = Paths.get("serveri/2.jpg");
                                             out.println(p.toString());
-                                            String var =  p.toString().replace("\\", "/");
+                                            String var = p.toString().replace("\\", "/");
                                             out.println(var);
-                                            
-                                            
-                                             Path homePath = FileSystems.getDefault().getPath("G:/up/public/");
-                                             out.println(homePath.toString());
-                                             
-                                             DirectoryStream<Path> stream = Files.newDirectoryStream(homePath);
-                                             /*for (Path entry : stream) {
+
+                                            Path homePath = FileSystems.getDefault().getPath("G:/up/public/");
+                                            out.println(homePath.toString());*/
+
+                                            //DirectoryStream<Path> stream = Files.newDirectoryStream(homePath);
+                                            /*for (Path entry : stream) {
                                              out.println(entry.toString());
                                              out.println("<li class=\"item-thumbs col-lg-3 design\" data-id=\"id-0\" data-type=\"web\">");
                                              out.println(" <a class=\"hover-wrap fancybox\" data-fancybox-group=\"gallery\" title=\"Portfolio name\" href=\"" + entry.toString() + "\">");
@@ -152,22 +155,36 @@
                                              out.println("<img src=\"" + entry.toString() + "\" alt=\"\">");
                                              out.println("</li>");
                                              }*/
-                                             
 
                                             //DirectoryStream<Path> stream = Files.newDirectoryStream(p);
                                             //    Iterator<Path> iterator = stream.iterator();
                                             //  while (iterator.hasNext()) {
-                                            out.println("<li class=\"item-thumbs col-lg-3 design\" data-id=\"id-0\" data-type=\"web\">");
+                                           /* out.println("<li class=\"item-thumbs col-lg-3 design\" data-id=\"id-0\" data-type=\"web\">");
                                             out.println("<a class=\"hover-wrap fancybox\" data-fancybox-group=\"gallery\" title=\"Portfolio name\" href=\"" + var + "\">");
                                             out.println("<span class=\"overlay-img\"></span>");
                                             out.println("<span class=\"overlay-img-thumb\"><i class=\"icon-info-blocks fa fa-code\"></i></span>");
                                             out.println("</a>");
                                             out.println("<img src=\"" + var + "\" alt=\"\">");
-                                            out.println("</li>");
+                                            out.println("</li>");*/
                                               //  }
 
                                         %>
+                                        -->
                                         <!-- End Item Project -->
+
+                                        <!-- Item Project and Filter Name -->
+                                        <li class="item-thumbs col-lg-3 design" data-id="id-0" data-type="web">
+                                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
+                                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="Portfolio name" href="./img/works/1.jpg">
+                                                <span class="overlay-img"></span>
+                                                <span class="overlay-img-thumb"><i class="icon-info-blocks fa fa-code"></i></span>
+                                            </a>
+                                            <!-- Thumb Image and Description -->
+                                            <img src="img/works/1.jpg" alt="">
+                                        </li>
+                                        <!-- End Item Project -->
+                                        
+
                                     </ul>
                                 </section>
                             </div>
@@ -211,7 +228,6 @@
 
 
         <!-- JavaScript Includes -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="assets/js/jquery.knob.js"></script>
 
         <!-- jQuery File Upload Dependencies -->

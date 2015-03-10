@@ -5,10 +5,11 @@ package fr.upem.upload;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import fr.upem.connection.UserBean;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -28,55 +30,68 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class UploadFile extends HttpServlet {
 
-    public static String saveFile="G:/up";
+    public static String saveFile = "C:/server";
+
     //"G:/up"
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try{
-            boolean ismultipart=ServletFileUpload.isMultipartContent(request);
-            if(!ismultipart){}
-            
-            else{
+
+        List<String> listOfExtensions = new ArrayList<String>(2);
+        listOfExtensions.add("jpg");
+        listOfExtensions.add("jpeg");
+
+         HttpSession session = request.getSession();
+         UserBean currentUser = (UserBean) (session.getAttribute("currentSessionUser"));
+        try {
+            boolean ismultipart = ServletFileUpload.isMultipartContent(request);
+            if (!ismultipart) {
+            } else {
                 FileItemFactory factory = new DiskFileItemFactory();
                 ServletFileUpload upload = new ServletFileUpload(factory);
                 List items = null;
-                try{
-                    items=upload.parseRequest(request);
-                }catch(Exception e){
-                    out.write("Error"+e);
+                try {
+                    items = upload.parseRequest(request);
+                } catch (Exception e) {
+                    out.write("Error" + e);
                 }
                 Iterator it = items.iterator();
-                while(it.hasNext()){
-                    FileItem item = (FileItem)it.next();
-                    
-                    if(item.isFormField()){
-                        
-                    }
-                    else{
+                while (it.hasNext()) {
+                    FileItem item = (FileItem) it.next();
+
+                    if (item.isFormField()) {
+
+                    } else {
                         String itemname = item.getName();
-                        if((itemname==null)||itemname.equals("")){
+                        if ((itemname == null) || itemname.equals("")) {
                             continue;
-                        }    
+                        }
                         String filename = FilenameUtils.getName(itemname);
-                        File f = checkExist(filename);
-                        item.write(f);  
-                    }  
+                        
+                        String extension  = FilenameUtils.getExtension(filename);
+                        if (!listOfExtensions.contains(extension)){
+                            continue;
+                        }
+                        
+                        File f = checkExist(currentUser.getUserpseudo(),filename);
+                        item.write(f);
+                    }
                 }
-            }     
-        }catch(Exception e){}
-    }
-    
-     private File checkExist(String filename) {
-        File f = new File(saveFile+"/"+filename);
-        if(f.exists()){
-            StringBuffer sb= new StringBuffer(filename);
-            sb.insert(sb.lastIndexOf("."), "-"+ new Date().getTime());
-            f=new File(saveFile+"/"+sb.toString());
+            }
+        } catch (Exception e) {
         }
-        return f;
     }
+
+    private File checkExist(String pseudo,String filename) {
+            //File f = new File(saveFile + "/" + filename);
+            //if (f.exists()) {
+                StringBuffer sb = new StringBuffer(filename);
+                sb.insert(sb.lastIndexOf("."), "_" + new Date().getTime());
+                return new File(saveFile + "/" + pseudo + "_" + sb.toString());
+            //}
+            //return f;
+        } 
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

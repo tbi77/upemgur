@@ -18,9 +18,9 @@ import java.nio.file.Paths;
 public class test {
 
     public static void main(String[] args) throws IOException {
-       Path homePath2 = Paths.get(System.getProperty("user.dir"));
+       Path homePath2 = Paths.get(".");
         
-       System.out.println(homePath2.toString());
+       System.out.println(homePath2.toAbsolutePath().toString());
         
         Path homePath = Paths.get( "C:\\Users\\Jon\\Documents\\NetBeansProjects\\Upemgur2\\web\\serveri");
         
